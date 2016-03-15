@@ -1,0 +1,24 @@
+version: '2'
+services:
+  saveorder:
+    build: build/docker
+    ports:
+      - "80:8080"
+    container_name: saveorder
+    links:
+      - database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database/afm
+      - SPRING_DATASOURCE_USERNAME=dbuser
+      - SPRING_DATASOURCE_PASSWORD=admin123
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.jdbc.Driver
+  database:
+    image: mysql
+    container_name: database
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: afm
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: admin123
